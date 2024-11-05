@@ -134,6 +134,18 @@ def clear_full_rows(tetris):
         tetris.score += TRIPLE_CLEAR_SCORE
     elif cleared_rows == 4:
         tetris.score += TETRIS_CLEAR_SCORE
+    elif cleared_rows == 5:
+        tetris.score += TETRIS_CLEAR_SCORE
+    elif cleared_rows == 6:
+        tetris.score += TETRIS_CLEAR_SCORE
+    elif cleared_rows == 7:
+        tetris.score += TETRIS_CLEAR_SCORE
+    elif cleared_rows == 8:
+        tetris.score += TETRIS_CLEAR_SCORE
+    elif cleared_rows == 9:
+        tetris.score += TETRIS_CLEAR_SCORE
+    elif cleared_rows == 10:
+        tetris.score += TETRIS_CLEAR_SCORE
 
 if __name__ == "__main__":
     draw_start_screen()
