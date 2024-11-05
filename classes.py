@@ -17,7 +17,7 @@ game_over_sound = pygame.mixer.Sound(game_over_music)
 # Set volume for sound effects
 clear_sound.set_volume(0.5)
 place_block_sound.set_volume(0.5)
-game_over_sound.set_volume(0.5)
+game_over_sound.set_volume(0.5)\
 
 class Shape:
     VERSION = {

@@ -4,7 +4,7 @@ pygame.init()
 
 WIDTH = 300
 HEIGHT = 500
-FPS = 35
+FPS = 60
 CELL = 20
 ROWS = (HEIGHT - 120) // CELL
 COLS = WIDTH // CELL
