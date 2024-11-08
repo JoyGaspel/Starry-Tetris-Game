@@ -19,7 +19,7 @@ clear_sound.set_volume(0.5)
 game_over_sound = pygame.mixer.Sound(game_over_music)
 
 # Set the window title
-pygame.display.set_caption("Tetris Game")
+pygame.display.set_caption("Starry Tetris Game")
 
 # Existing game code follows...
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -56,7 +56,7 @@ def draw_start_screen():
     button_font = pygame.font.Font(font_path, 20)
 
     # Render the title text
-    title_text = title_font.render("Tetris\n Game", True, WHITE)
+    title_text = title_font.render("Starry\nTetris\n Game", True, WHITE)
     title_rect = title_text.get_rect(center=(WIDTH // 2, HEIGHT // 4))
     SCREEN.blit(title_text, title_rect)
 
