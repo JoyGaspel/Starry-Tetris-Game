@@ -6,7 +6,7 @@ pygame.mixer.init()
 
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 
-game_over_music =  os.path.join('Assets', 'game-over.wav')
+game_over_music = os.path.join('Assets', 'game-over.wav')
 clear_path = os.path.join('Assets', 'clear-line.wav')
 place_block_path = os.path.join('Assets', 'place-sound.wav')
 pygame.mixer.music.set_volume(0.5)
@@ -17,7 +17,7 @@ game_over_sound = pygame.mixer.Sound(game_over_music)
 # Set volume for sound effects
 clear_sound.set_volume(0.5)
 place_block_sound.set_volume(0.5)
-game_over_sound.set_volume(0.5)\
+game_over_sound.set_volume(0.5)
 
 class Shape:
     VERSION = {
@@ -32,19 +32,19 @@ class Shape:
     SHAPES = ['I', 'Z', 'S', 'L', 'J', 'T', 'O']
     
     # Constructor
-    def __init__(self, x, y):
+    def __init__(self, x, y, shape_type=None):
         self.x = x
         self.y = y
-        self.type = random.choice(self.SHAPES)
+        self.type = shape_type if shape_type else random.choice(self.SHAPES)
         self.shape = self.VERSION[self.type]
-        self.color = random.randint(1,4)
+        self.color = random.randint(1, 4)
         self.orientation = 0
     
-    # image ~ Version of the Shape
+    # Image ~ Version of the Shape
     def image(self):
         return self.shape[self.orientation] 
     
-    # rotate
+    # Rotate
     def rotate(self):
         self.orientation = (self.orientation + 1) % len(self.shape)
 
@@ -59,7 +59,8 @@ class Tetris:
         self.grid = [[0 for j in range(cols)] for i in range(rows)]
         self.next = None
         self.end = False
-        self.sound_played = False  # New attribute to track if game over sound has played
+        self.sound_played = False  # Track if game over sound has played
+        self.previous_shape = None  # Track the last shape
         self.new_shape()
   
     # Make Grid
@@ -69,14 +70,20 @@ class Tetris:
         for j in range(self.cols+1):
             pygame.draw.line(SCREEN, GRID, (CELL*j, 0),(CELL*j, HEIGHT-120))
     
-    # Make new shape
+    # Make new shape with anti-repeat logic
     def new_shape(self):
+        new_shape_type = random.choice(Shape.SHAPES)
+        # Prevent direct repetition
+        while new_shape_type == self.previous_shape:
+            new_shape_type = random.choice(Shape.SHAPES)
+
+        self.previous_shape = new_shape_type
         if not self.next:
-            self.next = Shape(5,0)
+            self.next = Shape(5, 0, new_shape_type)
         self.figure = self.next
-        self.next = Shape(5,0)
+        self.next = Shape(5, 0, new_shape_type)
         
-    # COLLISION
+    # Collision
     def collision(self) -> bool:
         for i in range(4):
             for j in range(4):
@@ -144,7 +151,7 @@ class Tetris:
         if self.collision():
             self.figure.x -= 1
     
-    # freefall
+    # Freefall
     def freefall(self):
         while not self.collision():
             self.figure.y += 1
